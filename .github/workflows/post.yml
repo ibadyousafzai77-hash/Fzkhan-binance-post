@@ -1,0 +1,24 @@
+name: Crypto Signal Bot — Binance Square
+
+on:
+  schedule:
+    - cron: "0,15,30,45 * * * *"
+  workflow_dispatch:
+
+jobs:
+  post-signal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Run Signal Bot
+        run: node bot.js
+        env:
+          BINANCE_SQUARE_API_KEY: ${{ secrets.BINANCE_SQUARE_API_KEY }}
